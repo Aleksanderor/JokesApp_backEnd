@@ -49,10 +49,10 @@ public class Joke {
         this.content = content;
     }
 
-    @ManyToMany(mappedBy = "observedJokes")
-    private List<User> observers = new ArrayList<>();
+
+    public Joke(Long id, User orElseThrow, LocalDateTime created, String tags, JokeGroup orElseThrow1, List<Comment> comments, List<JokeRating> ratings, String content) {
 
 
-
+    }
 }
 
