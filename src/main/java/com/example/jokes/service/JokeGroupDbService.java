@@ -37,7 +37,4 @@ public class JokeGroupDbService {
         jokeGroupRepository.deleteById(id);
     }
 
-    public JokeGroup updateJokeGroup(JokeGroup updatedJokeGroup) {
-        return jokeGroupRepository.save(updatedJokeGroup);
-    }
 }
