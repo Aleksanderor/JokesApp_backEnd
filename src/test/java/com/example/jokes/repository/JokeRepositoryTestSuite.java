@@ -3,6 +3,7 @@ package com.example.jokes.repository;
 import com.example.jokes.domain.Joke;
 import com.example.jokes.domain.JokeGroup;
 import com.example.jokes.domain.User;
+import com.example.jokes.service.JokeDbService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,12 +12,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import com.example.jokes.service.JokeDbService;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
-import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 @SpringBootTest
 @Transactional
@@ -40,7 +42,7 @@ public class JokeRepositoryTestSuite {
     @BeforeEach
     void setUp() {
 
-        user = new User("jakis", "uzytkownik", LocalDate.parse("2000-01-01"), "email@example.com");
+        user = new User("uzytkownik", LocalDate.parse("2000-01-01"), "email@example.com");
         userRepository.save(user);
 
         group = new JokeGroup("Funny");
@@ -48,7 +50,7 @@ public class JokeRepositoryTestSuite {
     }
 
     @AfterEach
-    void cleanUp(){
+    void cleanUp() {
         userRepository.delete(user);
         jokeGroupRepository.delete(group);
     }
@@ -111,7 +113,7 @@ public class JokeRepositoryTestSuite {
         // Given
         Joke joke = new Joke();
 
-        User user2 = new User("jan", "kowalski", LocalDate.parse("1985-07-20"), "jan@mail.com");
+        User user2 = new User("kowalski", LocalDate.parse("1985-07-20"), "jan@mail.com");
         userRepository.save(user2);
 
         // When

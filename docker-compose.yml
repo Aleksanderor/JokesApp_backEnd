@@ -1,0 +1,11 @@
+version: '3'
+services:
+  database:
+    image: mysql:latest
+    environment:
+      - MYSQL_USER=${MYSQL_USER:-kodilla}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-password}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD:-password}
+      - MYSQL_DATABASE=task_crud
+    ports:
+      - "3306:3306"

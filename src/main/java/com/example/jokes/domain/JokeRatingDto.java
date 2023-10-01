@@ -8,6 +8,5 @@ import lombok.Getter;
 public class JokeRatingDto {
     private Long id;
     private Integer rating;
-
-
+    private UserDto user;
 }

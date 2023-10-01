@@ -17,9 +17,10 @@ public class JokeGroupMapper {
         );
     }
 
-    public JokeGroup maptoJokeGroup(final JokeGroupDto jokeGroupDto){
+    public JokeGroup maptoJokeGroup(final JokeGroupDto jokeGroupDto) {
         return new JokeGroup(
-                jokeGroupDto.getName()
+                jokeGroupDto.getId(),
+                jokeGroupDto.getJokeGroupName()
         );
     }
 

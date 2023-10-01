@@ -10,15 +10,12 @@ import java.time.LocalDateTime;
 public class CommentDto {
 
     private long id;
-    private Joke joke;
-
-    private User author;
+    private String author;
     private String commentContent;
     private LocalDateTime created;
 
-    public CommentDto(Long id, Joke joke, User author, String commentContent, LocalDateTime created) {
+    public CommentDto(Long id, String author, String commentContent, LocalDateTime created) {
         this.id = id;
-        this.joke = joke;
         this.author=author;
         this.commentContent = commentContent;
         this.created = created;

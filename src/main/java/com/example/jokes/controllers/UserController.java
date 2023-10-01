@@ -44,11 +44,10 @@ public class UserController {
                 .map(user -> ResponseEntity.ok(userMapper.mapToUserDto(user)))
                 .orElse(ResponseEntity.notFound().build());
     }
+
     @GetMapping("/byNick/{nick}")
     public ResponseEntity<UserDto> getUserByNick(@PathVariable String nick) {
-        return userDbService.getUserByNick(nick)
-                .map(user -> ResponseEntity.ok(userMapper.mapToUserDto(user)))
-                .orElse(ResponseEntity.notFound().build());
+        return ResponseEntity.ok(userMapper.mapToUserDto(userDbService.getUserByNick(nick)));
     }
 
     @DeleteMapping("/{userId}")

@@ -1,5 +1,6 @@
 package com.example.jokes.service.externalApiDbService;
 
+import com.example.jokes.domain.ExternalJokeDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -18,7 +19,7 @@ public class DadJokeDbService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public Object getRandomJoke() {
+    public ExternalJokeDto getRandomJoke() {
 
         try {
             HttpHeaders headers = new HttpHeaders();
@@ -26,9 +27,9 @@ public class DadJokeDbService {
             headers.set("X-RapidAPI-Host", getxRapidApiHost);
 
 
-            ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET,new HttpEntity<>(headers),String.class);
+            ResponseEntity<ExternalJokeDto> response = restTemplate.exchange(url, HttpMethod.GET, new HttpEntity<>(headers), ExternalJokeDto.class);
 
-            log.info("Output formr rapidApi:{}",response.getBody());
+            log.info("Output formr rapidApi:{}", response.getBody());
 
             return response.getBody();
         } catch (Exception e) {

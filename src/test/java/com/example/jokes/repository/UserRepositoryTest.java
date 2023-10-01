@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
+
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,7 +35,7 @@ public class UserRepositoryTest {
     void addUser() {
 
         //Given
-        User user = new User("Alice", "Johnson", LocalDate.of(1985, 5, 20), "alice@example.com");
+        User user = new User("Johnson", LocalDate.of(1985, 5, 20), "alice@example.com");
 
         // When
         userRepository.save(user);
@@ -43,11 +44,12 @@ public class UserRepositoryTest {
         assertTrue(userRepository.existsById(user.getId()));
 
     }
+
     @Test
-    void deleteByIdUserTest(){
+    void deleteByIdUserTest() {
 
         //Given
-        User user = new User("Alice", "Johnson", LocalDate.of(1985, 5, 20), "alice@example.com");
+        User user = new User("Johnson", LocalDate.of(1985, 5, 20), "alice@example.com");
 
         //When
         userRepository.save(user);
@@ -58,9 +60,9 @@ public class UserRepositoryTest {
     }
 
     @Test
-    void findByUserIDTest(){
+    void findByUserIDTest() {
         //Given
-        User user = new User("Alice", "Johnson", LocalDate.of(1985, 5, 20), "alice@example.com");
+        User user = new User("Johnson", LocalDate.of(1985, 5, 20), "alice@example.com");
 
         //When
         userRepository.save(user);
@@ -72,11 +74,11 @@ public class UserRepositoryTest {
     }
 
     @Test
-    void findAllUsers(){
+    void findAllUsers() {
 
         //Given
-        User user = new User("Alice", "Johnson", LocalDate.of(1985, 5, 20), "alice@example.com");
-        User user2 = new User("user2", "Johnson", LocalDate.of(1985, 5, 20), "user2@example.com");
+        User user = new User("Johnson", LocalDate.of(1985, 5, 20), "alice@example.com");
+        User user2 = new User("Johnson", LocalDate.of(1985, 5, 20), "user2@example.com");
 
         userRepository.save(user);
         userRepository.save(user2);

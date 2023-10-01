@@ -1,10 +1,22 @@
 package com.example.jokes.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.With;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -14,20 +26,23 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Table(name="JOKE")
+@Builder
+@With
+@Table(name = "JOKE")
 public class Joke {
 
     @Id
     @GeneratedValue
     @NotNull
-    @Column(name="JOKE_ID", unique = true)
+    @Column(name = "JOKE_ID", unique = true)
     private long id;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "USER_ID")
     private User author;
-    @Column(name="CREATED")
+
+    @Column(name = "CREATED")
     private LocalDateTime created;
 
     @Column(name = "TAGS")
@@ -37,22 +52,30 @@ public class Joke {
     @JoinColumn(name = "JOKE_GROUP_ID")
     private JokeGroup jokeGroup;
 
-    @OneToMany(mappedBy = "joke")
+    @OneToMany
     private List<Comment> comments;
 
-    @OneToMany(mappedBy = "joke", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
+    @Builder.Default
     private List<JokeRating> ratings = new ArrayList<>();
     @Column(name = "CONTENT")
     private String content;
 
-    public Joke(String content){
+    @PrePersist
+    void setCreatedAt() {
+        this.created = LocalDateTime.now();
+    }
+
+    public Joke(String content) {
         this.content = content;
     }
 
-
-    public Joke(Long id, User orElseThrow, LocalDateTime created, String tags, JokeGroup orElseThrow1, List<Comment> comments, List<JokeRating> ratings, String content) {
-
-
+    public Joke(User author, String tags, JokeGroup jokeGroup, List<Comment> comments, String content) {
+        this.author = author;
+        this.tags = tags;
+        this.jokeGroup = jokeGroup;
+        this.comments = comments;
+        this.content = content;
     }
 }
 

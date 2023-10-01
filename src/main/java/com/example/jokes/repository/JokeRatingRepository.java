@@ -1,6 +1,5 @@
 package com.example.jokes.repository;
 
-import com.example.jokes.domain.Joke;
 import com.example.jokes.domain.JokeRating;
 import com.example.jokes.domain.User;
 import org.springframework.data.repository.CrudRepository;
@@ -23,9 +22,5 @@ public interface JokeRatingRepository extends CrudRepository<JokeRating, Long> {
     void deleteById(Long id);
 
     List<JokeRating> findAllByUser(User user);
-    List<JokeRating> findAllByUserAndJoke(User user, Joke joke);
-
-
-
 }
 

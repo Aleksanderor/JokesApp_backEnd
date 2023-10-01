@@ -4,7 +4,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Entity
@@ -23,21 +30,19 @@ public class Comment {
     @JoinColumn(name = "USER_ID")
     private User author;
 
-    @ManyToOne
-    @JoinColumn(name = "JOKE_ID")
-    private Joke joke;
-
     @Column(name = "COMMENT_CONTENT")
     private String commentContent;
 
     @Column(name = "CREATED")
     private LocalDateTime created;
 
-    public Comment (Long id, Joke joke, User author, String commentContent, LocalDateTime created) {
-        this.id = id;
-        this.joke = joke;
-        this.author=author;
+    public Comment(User author, String commentContent) {
+        this.author = author;
         this.commentContent = commentContent;
-        this.created = created;
+    }
+
+    @PrePersist
+    void setCreatedAt() {
+        this.created = LocalDateTime.now();
     }
 }

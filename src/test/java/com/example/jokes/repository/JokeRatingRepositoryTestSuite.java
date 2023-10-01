@@ -38,7 +38,7 @@ public class JokeRatingRepositoryTestSuite {
 
     @BeforeEach
     void setUp() {
-        user = new User("jakis", "uzytkownik", LocalDate.parse("2000-01-01"), "email@example.com");
+        user = new User("uzytkownik", LocalDate.parse("2000-01-01"), "email@example.com");
         userRepository.save(user);
 
         joke = new Joke();
@@ -56,7 +56,6 @@ public class JokeRatingRepositoryTestSuite {
     void testAddJokeRatingToJoke() {
         // Given
         JokeRating jokeRating = new JokeRating();
-        jokeRating.setJoke(joke);
 
         // When
         jokeRatingRepository.save(jokeRating);
@@ -64,7 +63,6 @@ public class JokeRatingRepositoryTestSuite {
         // Then
         Optional<JokeRating> savedJokeRating = jokeRatingRepository.findById(jokeRating.getId());
         assertTrue(savedJokeRating.isPresent());
-        assertEquals(joke.getId(), savedJokeRating.get().getJoke().getId());
 
         // CleanUp
         jokeRatingRepository.delete(jokeRating);
@@ -74,7 +72,6 @@ public class JokeRatingRepositoryTestSuite {
     void testDeleteJokeRating() {
         // Given
         JokeRating jokeRating = new JokeRating();
-        jokeRating.setJoke(joke);
         jokeRatingRepository.save(jokeRating);
 
         // When
@@ -89,7 +86,6 @@ public class JokeRatingRepositoryTestSuite {
     void testFindJokeRatingById() {
         // Given
         JokeRating jokeRating = new JokeRating();
-        jokeRating.setJoke(joke);
         jokeRatingRepository.save(jokeRating);
 
         // When
@@ -104,11 +100,9 @@ public class JokeRatingRepositoryTestSuite {
     void testGetAllJokeRatings() {
         // Given
         JokeRating jokeRating = new JokeRating();
-        jokeRating.setJoke(joke);
         jokeRatingRepository.save(jokeRating);
 
         JokeRating jokeRating2 = new JokeRating();
-        jokeRating2.setJoke(joke);
         jokeRatingRepository.save(jokeRating2);
 
         // Then
@@ -122,7 +116,6 @@ public class JokeRatingRepositoryTestSuite {
     void testUpdateJokeRating() {
         // Given
         JokeRating jokeRating = new JokeRating();
-        jokeRating.setJoke(joke);
         jokeRatingRepository.save(jokeRating);
 
         // When
@@ -138,9 +131,9 @@ public class JokeRatingRepositoryTestSuite {
     @Test
     public void testFindAllByUser() {
         // Given
-        User user1 = new User("John", "Doe", LocalDate.of(1990, 1, 1), "john@example.com");
-        User user2 = new User("Alice", "Smith", LocalDate.of(1985, 5, 5), "alice@example.com");
-        User user3 = new User("Bob", "Johnson", LocalDate.of(1988, 7, 10), "bob@example.com");
+        User user1 = new User("Doe", LocalDate.of(1990, 1, 1), "john@example.com");
+        User user2 = new User("Smith", LocalDate.of(1985, 5, 5), "alice@example.com");
+        User user3 = new User("Johnson", LocalDate.of(1988, 7, 10), "bob@example.com");
         userRepository.save(user1);
         userRepository.save(user2);
         userRepository.save(user3);
@@ -149,9 +142,9 @@ public class JokeRatingRepositoryTestSuite {
         joke.setAuthor(user1);
         jokeRepository.save(joke);
 
-        JokeRating rating1 = new JokeRating(user1, joke, 5);
-        JokeRating rating2 = new JokeRating(user2, joke, 4);
-        JokeRating rating3 = new JokeRating(user3, joke, 3);
+        JokeRating rating1 = new JokeRating(user1, 5);
+        JokeRating rating2 = new JokeRating(user2, 4);
+        JokeRating rating3 = new JokeRating(user3, 3);
 
         jokeRatingRepository.save(rating1);
         jokeRatingRepository.save(rating2);

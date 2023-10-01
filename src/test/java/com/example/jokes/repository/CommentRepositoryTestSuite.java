@@ -38,7 +38,7 @@ public class CommentRepositoryTestSuite {
 
     @BeforeEach
     void setUp() {
-        user = new User("jakis", "uzytkownik", LocalDate.parse("2000-01-01"), "email@example.com");
+        user = new User( "uzytkownik", LocalDate.parse("2000-01-01"), "email@example.com");
         userRepository.save(user);
 
         joke = new Joke();
@@ -56,7 +56,6 @@ public class CommentRepositoryTestSuite {
     void testAddCommentToJoke() {
         // Given
         Comment comment = new Comment();
-        comment.setJoke(joke);
 
         // When
         commentRepository.save(comment);
@@ -64,7 +63,6 @@ public class CommentRepositoryTestSuite {
         // Then
         Optional<Comment> savedComment = commentRepository.findById(comment.getId());
         assertTrue(savedComment.isPresent());
-        assertEquals(joke.getId(), savedComment.get().getJoke().getId());
 
         // CleanUp
         commentRepository.delete(comment);
@@ -74,7 +72,6 @@ public class CommentRepositoryTestSuite {
     void testDeleteComment() {
         // Given
         Comment comment = new Comment();
-        comment.setJoke(joke);
         commentRepository.save(comment);
 
         // When
@@ -89,7 +86,6 @@ public class CommentRepositoryTestSuite {
     void testFindCommentById() {
         // Given
         Comment comment = new Comment();
-        comment.setJoke(joke);
         commentRepository.save(comment);
 
         // When
@@ -104,11 +100,9 @@ public class CommentRepositoryTestSuite {
     void testGetAllComments() {
         // Given
         Comment comment = new Comment();
-        comment.setJoke(joke);
         commentRepository.save(comment);
 
         Comment comment2 = new Comment();
-        comment2.setJoke(joke);
         commentRepository.save(comment2);
 
         // Then
@@ -122,7 +116,6 @@ public class CommentRepositoryTestSuite {
     void testUpdateComment() {
         // Given
         Comment comment = new Comment();
-        comment.setJoke(joke);
         commentRepository.save(comment);
 
         // When

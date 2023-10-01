@@ -15,7 +15,7 @@ public class JokeDto {
     private String content;
     private LocalDateTime created;
     private String tags;
-    private JokeGroup jokeGroup;
-    private List<Comment> comments;
-    private List<JokeRating> ratings;
+    private JokeGroupDto jokeGroup;
+    private List<CommentDto> comments;
+    private double averageRating;
 }
